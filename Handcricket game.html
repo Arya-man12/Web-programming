@@ -1,0 +1,114 @@
+<!DOCTYPE html> 
+<html lang="en"> 
+<head> 
+    <meta charset="UTF-8"> 
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+    <style> 
+        body { 
+            background-color: darkorange; 
+            font-family: Arial, sans-serif; 
+            text-align: center; 
+        } 
+        h1 { 
+            color: white; 
+            font-size: 24px; 
+            margin-top: 20px; 
+        } 
+    </style> 
+</head> 
+<body> 
+    <h1>Hand Cricket</h1> 
+    <canvas id="gameCanvas" width="400" height="200"></canvas> 
+   <center><div id="game"> 
+    <button onclick="startBatting()">Bat First</button> 
+    <button onclick="startBowling()">Bowl First</button> 
+    <input type="number" id="userInput" placeholder="Enter your number (1-6)"> 
+    <button onclick="submitUserInput()">Submit</button> 
+    </div></center> 
+    <script> 
+        const canvas = document.getElementById('gameCanvas'); 
+        const ctx = canvas.getContext('2d'); 
+ 
+        let isBatting = false; 
+        let target = 0; 
+        let userRuns = 0; 
+        let computerRuns = 0; 
+ 
+        function startBatting() { 
+            ctx.clearRect(0,0,canvas.width,canvas.height); 
+            isBatting = true; 
+            target = Math.floor(Math.random() * 50); // Random target between 0 and 35 
+            alert(`Your target: ${target}`); 
+        } 
+ 
+        function startBowling() { 
+            ctx.clearRect(0,0,canvas.width,canvas.height); 
+            isBatting = false; 
+            target = Math.floor(Math.random() * 50); // Random target between 0 and 35 
+            alert(`Computer's target: ${target}`); 
+            computerBatting(); 
+        } 
+ 
+        function submitUserInput() { 
+            const userNumber = 
+parseInt(document.getElementById('userInput').value); 
+            if(userNumber>6){ 
+           alert('Number shouldnt be more than 6') 
+            } 
+            else{ 
+            alert(`User put: ${userNumber}`); 
+ 
+            if (isBatting) { 
+                const computerNumber = Math.floor(Math.random() * 6) + 1; 
+                alert(`Computer put: ${computerNumber}`); 
+ 
+                if (userNumber === computerNumber) { 
+                 
+                        alert('You are out! Computer wins.'); 
+                        ctx.font = "50px Arial"; 
+                        ctx.fillText("OUT!", 20, 50); 
+                        reset(); 
+                } else { 
+                    userRuns += userNumber; 
+                    if (userRuns > target) { 
+                        alert('Congratulations! '); 
+                        ctx.font = "50px Arial"; 
+                        ctx.fillText("You win!", 20, 50); 
+                        reset(); 
+                    } else { 
+                        alert(`Your current score: ${userRuns}`); 
+                    } 
+                } 
+            } else { 
+                const computerNumber = Math.floor(Math.random() * 6) + 1; 
+                alert(`Computer put: ${computerNumber}`); 
+ 
+                if (computerNumber === userNumber) { 
+                     
+                        alert('Computer is out! '); 
+                        ctx.font = "50px Arial"; 
+                        ctx.fillText("OUT!", 20, 50); 
+                     
+                } else { 
+                    computerRuns += computerNumber; 
+                    if (computerRuns > target) { 
+                        alert(`Computer score: ${computerRuns}`); 
+                    } else { 
+                        alert(`Computer score: ${computerRuns}`); 
+                         
+                    } 
+                } 
+            } 
+        }} 
+ 
+     
+        function reset(){ 
+            target=0; 
+            computerRuns=0; 
+            userRuns=0; 
+            isBatting=false; 
+             
+        } 
+    </script> 
+</body> 
+</html>
