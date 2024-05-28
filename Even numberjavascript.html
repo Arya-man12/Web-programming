@@ -1,0 +1,24 @@
+<!DOCTYPE html>  
+<html>  
+<head>  
+  <title>Even Numbers</title>  
+</head>  
+<center><body bgcolor="darkorange">  
+    <br><br>  
+  <input type="text" id="inputArray" placeholder="Enter numbers " />  
+  <br><br>  
+  <button onclick="evenNumbers()">Even Numbers</button>  
+  <p id="outputArray"></p>  
+  
+  <script>  
+    function evenNumbers() {  
+      var inputArray = document.getElementById("inputArray").value;  
+      var numbers = inputArray.split(",").map(Number);  
+      var evenNumbers = numbers.filter(function(number) {  
+        return number % 2 === 0;  
+      });  
+      document.getElementById("outputArray").innerHTML = evenNumbers.join(", ");
+    }  
+  </script>  
+</body></center>  
+</html> 
